@@ -1,0 +1,5 @@
+# Cloudflare Pages config untuk rm-dashboard
+# Dipakai oleh: npx wrangler pages deploy
+name = "rm-dashboard"
+compatibility_date = "2026-08-02"
+pages_build_output_dir = "dist"

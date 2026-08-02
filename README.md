@@ -32,9 +32,31 @@ npm run preview    # preview build
 
 Static site (output `dist/`). Target: Cloudflare Pages dengan custom domain `socmed.mitrabp.biz.id`.
 
+### Opsi 1: Auto-deploy via GitHub Actions (rekomendasi)
+
+Workflow `.github/workflows/deploy.yml` sudah disiapkan. Setiap push ke `main` otomatis build + deploy.
+
+Setup sekali saja:
+1. Buka repo → Settings → Secrets and variables → Actions
+2. Tambah 2 secrets:
+   - `CLOUDFLARE_API_TOKEN` — token API Cloudflare (izin: Account > Cloudflare Pages > Edit)
+   - `CLOUDFLARE_ACCOUNT_ID` — Account ID Cloudflare (dashboard → kanan bawah)
+3. Push ke `main` → workflow jalan otomatis → deploy ke `rm-dashboard.pages.dev`
+4. Pasang custom domain di dashboard Cloudflare: project → Custom domains → `socmed.mitrabp.biz.id`
+
+### Opsi 2: Deploy manual via wrangler CLI
+
 ```bash
+npx wrangler login          # sekali saja
 npx wrangler pages deploy dist --project-name=rm-dashboard
 ```
+
+### Opsi 3: Connect to Git di dashboard (tanpa token)
+
+1. dash.cloudflare.com → Workers & Pages → Create → Pages → Connect to Git
+2. Pilih repo `satu1gram/rm-dashboard`
+3. Build command: `npm run build` | Output dir: `dist`
+4. Custom domain: `socmed.mitrabp.biz.id`
 
 ## Data
 
