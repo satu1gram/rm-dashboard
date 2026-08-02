@@ -1,32 +1,46 @@
-# React + TypeScript + Vite
+# RM Dashboard — Dashboard Social Media Specialist Rekapan Mitra
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Dashboard untuk mengelola konten sosial media Rekapan Mitra (Threads, IG, WA Channel).
+Membantu social media specialist: rencana, kanban progress, report, dan evaluasi dalam satu tempat.
 
-Currently, two official plugins are available:
+## Fitur
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Beranda**: hero, stat cards, konten hari ini (copy-paste), to-do checklist, mini calendar, next up, progress minggu
+- **Kanban Konten**: 5 kolom status (Idea → Draft → Ready → Posted → Evaluated)
+- **Konten**: list + filter platform + detail + tombol salin siap posting + metrik performa
+- **Report**: grafik views/replies per konten, breakdown platform, pie chart jenis konten, insight otomatis
+- **Evaluasi**: target M1 (followers, signup, views, replies) + progress bar, checklist konsistensi, review mingguan
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Vite + React + TypeScript
+- Tailwind CSS v4
+- lucide-react (ikon)
+- recharts (grafik)
+- localStorage (data persist, tanpa backend dulu)
 
-## Expanding the Oxlint configuration
+## Development
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev        # dev server
+npm run build      # production build ke dist/
+npm run preview    # preview build
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Deploy
+
+Static site (output `dist/`). Target: Cloudflare Pages dengan custom domain `socmed.mitrabp.biz.id`.
+
+```bash
+npx wrangler pages deploy dist --project-name=rm-dashboard
+```
+
+## Data
+
+Seed data berisi konten minggu lalu (posted + metrics) dan rencana minggu ini (7 konten).
+Data tersimpan di localStorage; bisa direset dari halaman Evaluasi.
+
+## Repo
+
+https://github.com/satu1gram/rm-dashboard
