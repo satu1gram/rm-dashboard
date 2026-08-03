@@ -21,6 +21,15 @@ body {
   color: #1e1e2e;
 }
 
+/* Utility: sembunyikan scrollbar (dipakai nav horizontal di mobile) */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 6px;
