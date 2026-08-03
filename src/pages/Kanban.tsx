@@ -32,10 +32,10 @@ export default function Kanban() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-[18px] font-bold text-[#1e1e2e]">Kanban Konten</h2>
+          <h2 className="text-[16px] font-bold text-[#1e1e2e]">Kanban Konten</h2>
           <p className="text-[13px] text-[#8b8b9e]">Seret atau pakai tombol panah buat pindahin status konten.</p>
         </div>
         <Button>
@@ -43,7 +43,7 @@ export default function Kanban() {
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-3">
         {COLUMNS.map(({ status, color, bg }) => (
           <div key={status} className="flex flex-col rounded-2xl border border-cardline bg-[#f8f8fb] min-h-[300px]">
             <div className="flex items-center justify-between px-4 pt-4 pb-3">

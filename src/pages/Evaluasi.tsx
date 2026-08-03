@@ -37,10 +37,10 @@ export default function Evaluasi() {
   const adherence = dailyLogs.length ? (dailyLogs.filter((l) => l.posted_morning).length / dailyLogs.length) * 100 : 0;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-[18px] font-bold text-[#1e1e2e]">Evaluasi</h2>
+          <h2 className="text-[16px] font-bold text-[#1e1e2e]">Evaluasi</h2>
           <p className="text-[13px] text-[#8b8b9e]">Pantau target M1 dan evaluasi mingguan. Update angkanya tiap Minggu malam.</p>
         </div>
         <div className="flex gap-2">
@@ -54,7 +54,7 @@ export default function Evaluasi() {
       </div>
 
       {/* Goals */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {GOALS.map((g) => {
           const val = actual[g.key as keyof typeof actual];
           const pct = Math.min((val / g.target) * 100, 100);
@@ -89,7 +89,7 @@ export default function Evaluasi() {
         })}
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
         {/* Konsistensi */}
         <Card>
           <CardHeader title="Konsistensi Mingguan" subtitle="Checklist harian minggu lalu" />

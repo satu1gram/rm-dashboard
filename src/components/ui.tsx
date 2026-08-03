@@ -10,13 +10,39 @@ export function Card({ children, className = '' }: { children: ReactNode; classN
 
 export function CardHeader({ title, subtitle, action }: { title: string; subtitle?: string; action?: ReactNode }) {
   return (
-    <div className="flex items-start justify-between px-5 pt-5 pb-3">
+    <div className="flex items-start justify-between px-4 pt-4 pb-2.5">
       <div>
-        <h3 className="text-[15px] font-semibold text-[#1e1e2e]">{title}</h3>
-        {subtitle && <p className="text-[12px] text-[#8b8b9e] mt-0.5">{subtitle}</p>}
+        <h3 className="text-[14px] font-semibold text-[#1e1e2e]">{title}</h3>
+        {subtitle && <p className="text-[11.5px] text-[#8b8b9e] mt-0.5">{subtitle}</p>}
       </div>
       {action}
     </div>
+  );
+}
+
+/**
+ * Section = blok satu modul di halaman single-scroll.
+ * - id dipakai anchor scroll dari topbar
+ * - scroll-mt-16 biar tidak ketutup topbar sticky
+ */
+export function Section({
+  id,
+  children,
+  className = '',
+  divider = true,
+}: {
+  id: string;
+  children: ReactNode;
+  className?: string;
+  divider?: boolean;
+}) {
+  return (
+    <section
+      id={id}
+      className={`scroll-mt-16 py-3 ${divider ? 'border-t border-cardline/70' : ''} ${className}`}
+    >
+      {children}
+    </section>
   );
 }
 
@@ -74,10 +100,10 @@ export function StatCard({
   color?: string;
 }) {
   return (
-    <Card className="p-5">
+    <Card className="p-4">
       <div className="flex items-center justify-between">
         <div
-          className="flex h-10 w-10 items-center justify-center rounded-xl"
+          className="flex h-9 w-9 items-center justify-center rounded-xl"
           style={{ backgroundColor: color + '14', color }}
         >
           {icon}
@@ -92,8 +118,8 @@ export function StatCard({
           </span>
         )}
       </div>
-      <p className="mt-4 text-[26px] font-bold tracking-tight text-[#1e1e2e]">{value}</p>
-      <p className="text-[12.5px] text-[#8b8b9e] font-medium">{label}</p>
+      <p className="mt-3 text-[22px] font-bold tracking-tight text-[#1e1e2e]">{value}</p>
+      <p className="text-[12px] text-[#8b8b9e] font-medium">{label}</p>
     </Card>
   );
 }

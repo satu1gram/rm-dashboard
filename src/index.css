@@ -21,6 +21,10 @@ body {
   color: #1e1e2e;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* Utility: sembunyikan scrollbar (dipakai nav horizontal di mobile) */
 @utility no-scrollbar {
   scrollbar-width: none;

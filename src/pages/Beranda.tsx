@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { useStore } from '../store';
 import { Card, CardHeader, Badge, Button, StatCard, ProgressBar } from '../components/ui';
+import type { PageKey } from '../components/Topbar';
 import { PLATFORM_LABEL, PLATFORM_COLOR, TYPE_LABEL } from '../types';
 import { WEEK_START, WEEK_END } from '../data/seed';
 
@@ -21,7 +22,7 @@ function fmtDate(iso: string): string {
   return d.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'short' });
 }
 
-export default function Beranda({ onNavigate }: { onNavigate: (p: 'kanban' | 'konten' | 'report' | 'evaluasi' | 'beranda') => void }) {
+export default function Beranda({ onNavigate }: { onNavigate: (p: PageKey) => void }) {
   const { contents } = useStore();
 
   const today = new Date();
@@ -63,38 +64,38 @@ export default function Beranda({ onNavigate }: { onNavigate: (p: 'kanban' | 'ko
   const totalSignups = contents.reduce((s, c) => s + (c.metrics?.signups || 0), 0);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-3">
       {/* Hero */}
-      <div className="relative overflow-hidden rounded-2xl bg-rm-500 px-6 py-7 text-white shadow-[0_8px_24px_rgba(96,96,240,0.28)]">
+      <div className="relative overflow-hidden rounded-2xl bg-rm-500 px-5 py-5 text-white shadow-[0_8px_24px_rgba(96,96,240,0.28)]">
         <div className="absolute -right-10 -top-16 h-48 w-48 rounded-full bg-white/10" />
         <div className="absolute right-24 -bottom-20 h-40 w-40 rounded-full bg-white/10" />
-        <div className="relative flex flex-wrap items-center justify-between gap-4">
+        <div className="relative flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h1 className="text-[22px] font-bold tracking-tight">
+            <h1 className="text-[18px] font-bold tracking-tight">
               Hi, Salinov! Konten apa yang harus kamu posting hari ini?
             </h1>
-            <p className="mt-1.5 text-[13.5px] text-white/85 max-w-xl">
+            <p className="mt-1 text-[12.5px] text-white/85 max-w-xl">
               Dashboard ini dirancang buat ngebantu kamu ngatur konten Threads, IG, sama WA Channel mitra BP. Rencana, pantau, evaluasi, semua di satu tempat.
             </p>
           </div>
           <Button variant="ghost" className="!text-white !bg-white/15 hover:!bg-white/25" onClick={() => onNavigate('konten')}>
-            <Sparkles size={15} /> Lihat Konten Hari Ini
+            <Sparkles size={14} /> Lihat Konten Hari Ini
           </Button>
         </div>
       </div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
-        <StatCard icon={<FileText size={18} />} label="Konten Minggu Ini" value={String(stats.total)} delta={`${stats.posted} posted`} color="#6060f0" />
-        <StatCard icon={<CheckCircle2 size={18} />} label="Sudah Diposting" value={String(stats.posted)} delta={`${stats.ready} ready`} color="#10b981" />
-        <StatCard icon={<Users size={18} />} label="Followers Bertambah" value={`+${totalFollowers}`} delta="7 hari" color="#f59e0b" />
-        <StatCard icon={<TrendingUp size={18} />} label="Total Views" value={totalViews.toLocaleString('id-ID')} delta={`${totalSignups} signup`} color="#ec4899" />
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
+        <StatCard icon={<FileText size={17} />} label="Konten Minggu Ini" value={String(stats.total)} delta={`${stats.posted} posted`} color="#6060f0" />
+        <StatCard icon={<CheckCircle2 size={17} />} label="Sudah Diposting" value={String(stats.posted)} delta={`${stats.ready} ready`} color="#10b981" />
+        <StatCard icon={<Users size={17} />} label="Followers Bertambah" value={`+${totalFollowers}`} delta="7 hari" color="#f59e0b" />
+        <StatCard icon={<TrendingUp size={17} />} label="Total Views" value={totalViews.toLocaleString('id-ID')} delta={`${totalSignups} signup`} color="#ec4899" />
       </div>
 
       {/* Main grid */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-3">
         {/* LEFT column */}
-        <div className="space-y-4 xl:col-span-2">
+        <div className="space-y-3 xl:col-span-2">
           {/* Today */}
           <Card>
             <CardHeader
@@ -162,7 +163,7 @@ export default function Beranda({ onNavigate }: { onNavigate: (p: 'kanban' | 'ko
         </div>
 
         {/* RIGHT column */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           {/* Mini calendar */}
           <Card>
             <CardHeader title="Jadwal Minggu Ini" subtitle={`${WEEK_START.slice(8, 10)} - ${WEEK_END.slice(8, 10)} Agu`} action={<CalendarDays size={16} className="text-rm-500" />} />

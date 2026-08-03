@@ -84,14 +84,14 @@ export default function Report() {
   const engagementRate = totals.views > 0 ? ((totals.replies + totals.likes + totals.saves) / totals.views) * 100 : 0;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div>
-        <h2 className="text-[18px] font-bold text-[#1e1e2e]">Report</h2>
+        <h2 className="text-[16px] font-bold text-[#1e1e2e]">Report</h2>
         <p className="text-[13px] text-[#8b8b9e]">Metrik minggu lalu (27 Jul - 2 Agu) sebagai baseline.</p>
       </div>
 
       {/* KPI */}
-      <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
         <Card className="p-5">
           <p className="text-[12.5px] font-medium text-[#8b8b9e]">Total Views</p>
           <p className="mt-1 text-[24px] font-bold text-[#1e1e2e]">{totals.views.toLocaleString('id-ID')}</p>
@@ -114,7 +114,7 @@ export default function Report() {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
         {/* Views per content */}
         <Card>
           <CardHeader title="Views per Konten" subtitle="Minggu lalu, konten yang udah dievaluasi" />

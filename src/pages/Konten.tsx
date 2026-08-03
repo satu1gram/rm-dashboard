@@ -35,10 +35,10 @@ export default function Konten() {
   }, [contents]);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-[18px] font-bold text-[#1e1e2e]">Konten</h2>
+          <h2 className="text-[16px] font-bold text-[#1e1e2e]">Konten</h2>
           <p className="text-[13px] text-[#8b8b9e]">Semua konten siap copy-paste. Klik kartu buat liat detail.</p>
         </div>
         <div className="flex items-center gap-1 rounded-xl border border-cardline bg-white p-1">
@@ -56,7 +56,7 @@ export default function Konten() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-3">
         {/* List */}
         <div className="xl:col-span-2 space-y-2.5">
           {sorted.map((c) => (
