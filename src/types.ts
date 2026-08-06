@@ -38,6 +38,11 @@ export interface DailyLog {
   notes: string;
 }
 
+/** Format tanggal lokal (YYYY-MM-DD) — hindari toISOString yang bergeser karena timezone UTC */
+export function localDateStr(d: Date = new Date()): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
 export const PLATFORM_LABEL: Record<Platform, string> = {
   threads: 'Threads',
   ig_carousel: 'IG Carousel',

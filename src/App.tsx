@@ -73,7 +73,7 @@ export default function App() {
         {showTop && (
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="fixed bottom-5 right-5 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-rm-500 text-white shadow-[0_4px_16px_rgba(96,96,240,0.4)] transition-transform hover:scale-105 hover:bg-rm-600"
+            className="fixed bottom-5 right-5 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-rm-500 text-white shadow-[0_4px_16px_rgba(96,96,240,0.4)] transition duration-150 hover:bg-rm-600 active:scale-95"
             title="Kembali ke atas"
           >
             <ArrowUp size={16} />

@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Target, CheckCircle2, AlertCircle, RefreshCw, Save } from 'lucide-react';
+import { Target, CheckCircle2, AlertCircle, AlertTriangle, RefreshCw, Save, Lightbulb } from 'lucide-react';
 import { useStore } from '../store';
 import { Card, CardHeader, Badge, Button, ProgressBar } from '../components/ui';
 
@@ -41,7 +41,7 @@ export default function Evaluasi() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-[16px] font-bold text-[#1e1e2e]">Evaluasi</h2>
-          <p className="text-[13px] text-[#8b8b9e]">Pantau target M1 dan evaluasi mingguan. Update angkanya tiap Minggu malam.</p>
+          <p className="text-[13px] text-[#6b6b80]">Pantau target M1 dan evaluasi mingguan. Update angkanya tiap Minggu malam.</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={resetData}>
@@ -74,12 +74,12 @@ export default function Evaluasi() {
                   {done ? 'Tercapai' : 'Dalam proses'}
                 </Badge>
               </div>
-              <p className="mt-3 text-[11.5px] text-[#8b8b9e]">{g.hint}</p>
+              <p className="mt-3 text-[11.5px] text-[#6b6b80]">{g.hint}</p>
               <div className="mt-2 flex items-baseline gap-1.5">
                 <span className={`text-[26px] font-bold ${done ? 'text-emerald-500' : 'text-[#1e1e2e]'}`}>
                   {typeof val === 'number' ? val.toLocaleString('id-ID') : val}
                 </span>
-                <span className="text-[12px] text-[#a0a0b4]">/ {g.target} {g.unit}</span>
+                <span className="text-[12px] text-[#76768c]">/ {g.target} {g.unit}</span>
               </div>
               <div className="mt-3">
                 <ProgressBar value={pct} color={done ? '#10b981' : '#6060f0'} />
@@ -95,7 +95,7 @@ export default function Evaluasi() {
           <CardHeader title="Konsistensi Mingguan" subtitle="Checklist harian minggu lalu" />
           <div className="px-5 pb-5">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-[12.5px] text-[#8b8b9e]">Posting sesuai jadwal</span>
+              <span className="text-[12.5px] text-[#6b6b80]">Posting sesuai jadwal</span>
               <span className="text-[14px] font-bold text-[#1e1e2e]">{adherence.toFixed(0)}%</span>
             </div>
             <ProgressBar value={adherence} color="#10b981" />
@@ -108,10 +108,10 @@ export default function Evaluasi() {
                   ) : (
                     <AlertCircle size={14} className="text-rose-400" />
                   )}
-                  <span className="text-[11.5px] text-[#8b8b9e]">
+                  <span className="text-[11.5px] text-[#6b6b80]">
                     {l.posted_morning ? 'Posted' : 'Missed'} {l.shared_wa ? '• WA ✓' : '• WA ✗'}
                   </span>
-                  {l.notes && <span className="ml-auto truncate text-[11px] italic text-[#a0a0b4]">{l.notes}</span>}
+                  {l.notes && <span className="ml-auto truncate text-[11px] italic text-[#76768c]">{l.notes}</span>}
                 </div>
               ))}
             </div>
@@ -124,7 +124,9 @@ export default function Evaluasi() {
           <div className="px-5 pb-5">
             <div className="space-y-3">
               <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-3.5">
-                <p className="text-[12px] font-semibold text-emerald-700">✅ Yang jalan minggu ini</p>
+                <p className="flex items-center gap-1.5 text-[12px] font-semibold text-emerald-700">
+                  <CheckCircle2 size={14} /> Yang jalan minggu ini
+                </p>
                 <ul className="mt-1.5 space-y-1 text-[12.5px] text-emerald-800">
                   <li>• Intermezzo relatable juara: 12.400 views, 40 replies</li>
                   <li>• Confession story saves tinggi (55) = orang nyimpen buat dibaca ulang</li>
@@ -132,7 +134,9 @@ export default function Evaluasi() {
                 </ul>
               </div>
               <div className="rounded-xl border border-amber-100 bg-amber-50 p-3.5">
-                <p className="text-[12px] font-semibold text-amber-700">⚠️ Yang perlu diperbaiki</p>
+                <p className="flex items-center gap-1.5 text-[12px] font-semibold text-amber-700">
+                  <AlertTriangle size={14} /> Yang perlu diperbaiki
+                </p>
                 <ul className="mt-1.5 space-y-1 text-[12.5px] text-amber-800">
                   <li>• 1 hari lupa share ke WA Channel (29/7) — pasang reminder</li>
                   <li>• Cross-comment baru jalan 4 dari 6 hari</li>
@@ -159,7 +163,9 @@ export default function Evaluasi() {
               </Button>
             </div>
             {savedNote && (
-              <p className="mt-2 rounded-lg bg-rm-50 px-3 py-2 text-[12px] text-rm-700">💾 {savedNote}</p>
+              <p className="mt-2 flex items-center gap-1.5 rounded-lg bg-rm-50 px-3 py-2 text-[12px] text-rm-700">
+                <Lightbulb size={13} /> {savedNote}
+              </p>
             )}
           </div>
         </Card>

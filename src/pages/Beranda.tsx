@@ -14,7 +14,7 @@ import {
 import { useStore } from '../store';
 import { Card, CardHeader, Badge, Button, StatCard, ProgressBar } from '../components/ui';
 import type { PageKey } from '../components/Topbar';
-import { PLATFORM_LABEL, PLATFORM_COLOR, TYPE_LABEL } from '../types';
+import { PLATFORM_LABEL, PLATFORM_COLOR, TYPE_LABEL, localDateStr } from '../types';
 import { WEEK_START, WEEK_END } from '../data/seed';
 
 function fmtDate(iso: string): string {
@@ -26,7 +26,7 @@ export default function Beranda({ onNavigate }: { onNavigate: (p: PageKey) => vo
   const { contents } = useStore();
 
   const today = new Date();
-  const todayStr = today.toISOString().slice(0, 10);
+  const todayStr = localDateStr(today);
 
   const stats = useMemo(() => {
     const week = contents.filter((c) => c.scheduled_date >= WEEK_START && c.scheduled_date <= WEEK_END);
@@ -74,7 +74,7 @@ export default function Beranda({ onNavigate }: { onNavigate: (p: PageKey) => vo
             <h1 className="text-[18px] font-bold tracking-tight">
               Hi, Salinov! Konten apa yang harus kamu posting hari ini?
             </h1>
-            <p className="mt-1 text-[12.5px] text-white/85 max-w-xl">
+            <p className="mt-1 max-w-xl text-[12.5px] font-normal leading-relaxed text-white">
               Dashboard ini dirancang buat ngebantu kamu ngatur konten Threads, IG, sama WA Channel mitra BP. Rencana, pantau, evaluasi, semua di satu tempat.
             </p>
           </div>
@@ -109,8 +109,9 @@ export default function Beranda({ onNavigate }: { onNavigate: (p: PageKey) => vo
             />
             <div className="px-5 pb-5 space-y-3">
               {todayContents.length === 0 && (
-                <div className="rounded-xl border border-dashed border-cardline bg-[#fafafc] p-4 text-center text-[13px] text-[#8b8b9e]">
-                  Tidak ada konten terjadwal hari ini. Santai dulu, atau siapkan konten besok. ✨
+                <div className="rounded-xl border border-dashed border-cardline bg-[#fafafc] p-4 text-center text-[13px] text-[#6b6b80]">
+                  <Sparkles size={16} className="mx-auto mb-1.5 text-rm-400" />
+                  Tidak ada konten terjadwal hari ini. Santai dulu, atau siapkan konten besok.
                 </div>
               )}
               {todayContents.map((c) => (
@@ -123,7 +124,7 @@ export default function Beranda({ onNavigate }: { onNavigate: (p: PageKey) => vo
                     <div className="mt-1 flex items-center gap-2">
                       <Badge color={PLATFORM_COLOR[c.platform]}>{PLATFORM_LABEL[c.platform]}</Badge>
                       <Badge color="#6b6b80">{TYPE_LABEL[c.content_type]}</Badge>
-                      <span className="text-[11px] text-[#a0a0b4]">{c.scheduled_time} WIB</span>
+                      <span className="text-[11px] text-[#76768c]">{c.scheduled_time} WIB</span>
                     </div>
                   </div>
                   <Button onClick={() => navigator.clipboard?.writeText(c.body)}>
@@ -151,10 +152,10 @@ export default function Beranda({ onNavigate }: { onNavigate: (p: PageKey) => vo
                     >
                       {t.done && <CheckCircle2 size={13} />}
                     </div>
-                    <span className={`flex-1 text-[13.5px] ${t.done ? 'text-[#a0a0b4] line-through' : 'text-[#2a2a3e]'}`}>
+                    <span className={`flex-1 text-[13.5px] ${t.done ? 'text-[#76768c] line-through' : 'text-[#2a2a3e]'}`}>
                       {t.label}
                     </span>
-                    <span className="rounded-md bg-[#f0f0f6] px-2 py-0.5 text-[11px] font-medium text-[#8b8b9e]">{t.time}</span>
+                    <span className="rounded-md bg-[#f0f0f6] px-2 py-0.5 text-[11px] font-medium text-[#6b6b80]">{t.time}</span>
                   </div>
                 ))}
               </div>
@@ -170,11 +171,12 @@ export default function Beranda({ onNavigate }: { onNavigate: (p: PageKey) => vo
             <div className="px-5 pb-5">
               <div className="grid grid-cols-7 gap-1.5">
                 {['S', 'S', 'R', 'K', 'J', 'S', 'M'].map((d, i) => (
-                  <div key={i} className="text-center text-[10px] font-semibold text-[#a0a0b4]">{d}</div>
+                  <div key={i} className="text-center text-[10px] font-semibold text-[#76768c]">{d}</div>
                 ))}
                 {Array.from({ length: 7 }).map((_, i) => {
-                  const date = new Date(2026, 7, 3 + i);
-                  const ds = date.toISOString().slice(0, 10);
+                  const [y, m, d] = WEEK_START.split('-').map(Number);
+                  const date = new Date(y, m - 1, d + i);
+                  const ds = localDateStr(date);
                   const has = contents.some((c) => c.scheduled_date === ds);
                   const isToday = ds === todayStr;
                   return (
@@ -184,7 +186,7 @@ export default function Beranda({ onNavigate }: { onNavigate: (p: PageKey) => vo
                         isToday ? 'bg-rm-500 text-white shadow-sm' : has ? 'bg-rm-50 text-rm-600' : 'text-[#6b6b80]'
                       }`}
                     >
-                      {3 + i}
+                      {d + i}
                       {has && <span className={`mt-0.5 h-1 w-1 rounded-full ${isToday ? 'bg-white' : 'bg-rm-500'}`} />}
                     </div>
                   );
@@ -201,12 +203,12 @@ export default function Beranda({ onNavigate }: { onNavigate: (p: PageKey) => vo
                 <button
                   key={c.id}
                   onClick={() => onNavigate('kanban')}
-                  className="group flex w-full items-center gap-3 rounded-xl border border-cardline p-3 text-left transition-colors hover:border-rm-200 hover:bg-rm-50/40"
+                  className="group flex w-full items-center gap-3 rounded-xl border border-cardline p-3 text-left transition duration-150 hover:border-rm-200 hover:bg-rm-50/40 active:scale-[0.99]"
                 >
                   <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rm-500 text-[11px] font-bold text-white">{i + 1}</span>
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-[13px] font-semibold text-[#1e1e2e]">{c.title}</p>
-                    <p className="text-[11px] text-[#a0a0b4]">
+                    <p className="text-[11px] text-[#76768c]">
                       {fmtDate(c.scheduled_date)} • {c.scheduled_time}
                     </p>
                   </div>
@@ -233,7 +235,7 @@ export default function Beranda({ onNavigate }: { onNavigate: (p: PageKey) => vo
               ].map((x) => (
                 <div key={x.l} className="rounded-xl bg-[#f8f8fb] py-3">
                   <p className="text-[18px] font-bold" style={{ color: x.c }}>{x.v}</p>
-                  <p className="text-[11px] text-[#8b8b9e]">{x.l}</p>
+                  <p className="text-[11px] text-[#6b6b80]">{x.l}</p>
                 </div>
               ))}
             </div>

@@ -13,16 +13,51 @@
   --color-rm-900: #312e81;
   --color-surface: #f4f4f7;
   --color-cardline: #e8e8ee;
+
+  /* Teks: dipakai konsisten di seluruh app (kontras >= 4.5:1 di atas putih) */
+  --color-ink: #1e1e2e;      /* teks utama */
+  --color-ink-2: #4a4a5e;    /* teks sekunder kuat */
+  --color-ink-3: #6b6b80;    /* teks sekunder / label */
+  --color-ink-4: #76768c;    /* teks tersier / placeholder */
 }
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background: #f4f4f7;
   color: #1e1e2e;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
+/* Motion default: halus tapi tetap cepat (Emil: UI < 300ms, ease-out) */
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Fokus keyboard yang terlihat — aksesibilitas wajib */
+:focus-visible {
+  outline: 2px solid #6060f0;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Browser surfaces ikut design system (craft floor) */
+::selection {
+  background: #6060f0;
+  color: #fff;
 }
 
 /* Utility: sembunyikan scrollbar (dipakai nav horizontal di mobile) */
@@ -43,6 +78,9 @@ html {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d4d4dc;
+  background: #c8c8d4;
   border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8bc;
 }

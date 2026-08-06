@@ -14,6 +14,7 @@ import {
   Cell,
 } from 'recharts';
 import { Card, CardHeader, Badge } from '../components/ui';
+import { Trophy, MessageSquare, AlertTriangle, Target } from 'lucide-react';
 import { useStore } from '../store';
 import { PLATFORM_LABEL, TYPE_LABEL } from '../types';
 
@@ -87,28 +88,28 @@ export default function Report() {
     <div className="space-y-3">
       <div>
         <h2 className="text-[16px] font-bold text-[#1e1e2e]">Report</h2>
-        <p className="text-[13px] text-[#8b8b9e]">Metrik minggu lalu (27 Jul - 2 Agu) sebagai baseline.</p>
+        <p className="text-[13px] text-[#6b6b80]">Metrik minggu lalu (27 Jul - 2 Agu) sebagai baseline.</p>
       </div>
 
       {/* KPI */}
       <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
         <Card className="p-5">
-          <p className="text-[12.5px] font-medium text-[#8b8b9e]">Total Views</p>
+          <p className="text-[12.5px] font-medium text-[#6b6b80]">Total Views</p>
           <p className="mt-1 text-[24px] font-bold text-[#1e1e2e]">{totals.views.toLocaleString('id-ID')}</p>
           <Badge color="#10b981" bg="#10b98114">baseline</Badge>
         </Card>
         <Card className="p-5">
-          <p className="text-[12.5px] font-medium text-[#8b8b9e]">Engagement Rate</p>
+          <p className="text-[12.5px] font-medium text-[#6b6b80]">Engagement Rate</p>
           <p className="mt-1 text-[24px] font-bold text-[#1e1e2e]">{engagementRate.toFixed(1)}%</p>
           <Badge color="#6060f0" bg="#6060f014">replies+likes+saves</Badge>
         </Card>
         <Card className="p-5">
-          <p className="text-[12.5px] font-medium text-[#8b8b9e]">Followers Bertambah</p>
+          <p className="text-[12.5px] font-medium text-[#6b6b80]">Followers Bertambah</p>
           <p className="mt-1 text-[24px] font-bold text-[#1e1e2e]">+{totals.followers}</p>
           <Badge color="#f59e0b" bg="#f59e0b14">target M1: 50</Badge>
         </Card>
         <Card className="p-5">
-          <p className="text-[12.5px] font-medium text-[#8b8b9e]">Signup dari Konten</p>
+          <p className="text-[12.5px] font-medium text-[#6b6b80]">Signup dari Konten</p>
           <p className="mt-1 text-[24px] font-bold text-[#1e1e2e]">{totals.signups}</p>
           <Badge color="#ec4899" bg="#ec489914">target M1: 10</Badge>
         </Card>
@@ -204,13 +205,18 @@ export default function Report() {
         <h3 className="text-[15px] font-semibold text-[#1e1e2e]">Insight Otomatis</h3>
         <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
           {[
-            { icon: '🏆', text: 'Konten intermezzo relatable perform terbaik (12.400 views). Jenis ini layak diposting 1x/minggu.', color: '#10b981' },
-            { icon: '💬', text: 'Reply-bait "angkat tangan" dan "kamu di titik mana?" konsisten ngasih 15-40 replies. Pertahankan pola ini.', color: '#6060f0' },
-            { icon: '⚠️', text: 'Konsistensi posting 89%. 1 hari terlewat share ke WA Channel. Coba pasang reminder.', color: '#f59e0b' },
-            { icon: '🎯', text: `Target M1: 50 followers & 10 signup. Saat ini +${totals.followers} followers & ${totals.signups} signup dari minggu pertama.`, color: '#ec4899' },
+            { Icon: Trophy, text: 'Konten intermezzo relatable perform terbaik (12.400 views). Jenis ini layak diposting 1x/minggu.', color: '#10b981' },
+            { Icon: MessageSquare, text: 'Reply-bait "angkat tangan" dan "kamu di titik mana?" konsisten ngasih 15-40 replies. Pertahankan pola ini.', color: '#6060f0' },
+            { Icon: AlertTriangle, text: 'Konsistensi posting 89%. 1 hari terlewat share ke WA Channel. Coba pasang reminder.', color: '#f59e0b' },
+            { Icon: Target, text: `Target M1: 50 followers & 10 signup. Saat ini +${totals.followers} followers & ${totals.signups} signup dari minggu pertama.`, color: '#ec4899' },
           ].map((x, i) => (
             <div key={i} className="flex items-start gap-3 rounded-xl border border-cardline bg-[#fafafc] p-3.5">
-              <span className="text-[18px]">{x.icon}</span>
+              <span
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
+                style={{ backgroundColor: x.color + '14', color: x.color }}
+              >
+                <x.Icon size={15} />
+              </span>
               <p className="text-[12.5px] leading-relaxed text-[#2a2a3e]">{x.text}</p>
             </div>
           ))}

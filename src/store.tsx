@@ -7,6 +7,8 @@ const LS_KEY = 'rm-dashboard-v1';
 interface StoreState {
   contents: Content[];
   dailyLogs: DailyLog[];
+  query: string;
+  setQuery: (q: string) => void;
   addContent: (c: Omit<Content, 'id'>) => void;
   updateContent: (id: string, patch: Partial<Content>) => void;
   setStatus: (id: string, status: Status) => void;
@@ -31,6 +33,7 @@ function load<T>(key: string, fallback: T): T {
 export function StoreProvider({ children }: { children: ReactNode }) {
   const [contents, setContents] = useState<Content[]>(() => load(LS_KEY + '-contents', seedContents));
   const [dailyLogs, setDailyLogs] = useState<DailyLog[]>(() => load(LS_KEY + '-logs', seedDailyLogs));
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     localStorage.setItem(LS_KEY + '-contents', JSON.stringify(contents));
@@ -83,7 +86,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   return (
     <StoreContext.Provider
-      value={{ contents, dailyLogs, addContent, updateContent, setStatus, removeContent, addDailyLog, updateDailyLog, resetData }}
+      value={{ contents, dailyLogs, query, setQuery, addContent, updateContent, setStatus, removeContent, addDailyLog, updateDailyLog, resetData }}
     >
       {children}
     </StoreContext.Provider>

@@ -13,7 +13,7 @@ export function CardHeader({ title, subtitle, action }: { title: string; subtitl
     <div className="flex items-start justify-between px-4 pt-4 pb-2.5">
       <div>
         <h3 className="text-[14px] font-semibold text-[#1e1e2e]">{title}</h3>
-        {subtitle && <p className="text-[11.5px] text-[#8b8b9e] mt-0.5">{subtitle}</p>}
+        {subtitle && <p className="text-[11.5px] text-[#6b6b80] mt-0.5">{subtitle}</p>}
       </div>
       {action}
     </div>
@@ -62,22 +62,25 @@ export function Button({
   variant = 'primary',
   onClick,
   className = '',
+  disabled = false,
 }: {
   children: ReactNode;
   variant?: 'primary' | 'ghost' | 'outline';
   onClick?: () => void;
   className?: string;
+  disabled?: boolean;
 }) {
   const styles =
     variant === 'primary'
       ? 'bg-rm-500 text-white hover:bg-rm-600 shadow-sm'
       : variant === 'outline'
         ? 'border border-cardline text-[#4a4a5e] hover:bg-[#f4f4f7]'
-        : 'text-[#6060f0] hover:bg-rm-50';
+        : 'text-rm-600 hover:bg-rm-50';
   return (
     <button
       onClick={onClick}
-      className={`inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-[13px] font-medium transition-colors ${styles} ${className}`}
+      disabled={disabled}
+      className={`inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-[13px] font-medium transition duration-150 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 ${styles} ${className}`}
     >
       {children}
     </button>
@@ -111,7 +114,7 @@ export function StatCard({
         {delta && (
           <span
             className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${
-              deltaUp ? 'text-emerald-600 bg-emerald-50' : 'text-rose-600 bg-rose-50'
+              deltaUp ? 'text-emerald-700 bg-emerald-50' : 'text-rose-700 bg-rose-50'
             }`}
           >
             {delta}
@@ -119,7 +122,7 @@ export function StatCard({
         )}
       </div>
       <p className="mt-3 text-[22px] font-bold tracking-tight text-[#1e1e2e]">{value}</p>
-      <p className="text-[12px] text-[#8b8b9e] font-medium">{label}</p>
+      <p className="text-[12px] text-[#6b6b80] font-medium">{label}</p>
     </Card>
   );
 }
